@@ -1,0 +1,5 @@
+security.protocol=SSL
+ssl.truststore.location=/tmp/certs/$TRUSTSTORE_FILE
+ssl.truststore.password=$TRUSTSTORE_PASSWORD
+ssl.keystore.location=/tmp/certs/$KEYSTORE_FILE
+ssl.keystore.password=$KEYSTORE_PASSWORD

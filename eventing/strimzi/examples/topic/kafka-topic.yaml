@@ -6,7 +6,11 @@ metadata:
     strimzi.io/cluster: my-cluster
 spec:
   partitions: 3
-  replicas: 3
+  replicas: 3 # Replicas must be equal or lower than the number of brokers available
+  # See https://docs.confluent.io/platform/current/installation/configuration/topic-configs.html
   config:
-    retention.ms: 7200000
-    segment.bytes: 1073741824
+    compression.type: producer # Specify the final compression type for a given topic. Values [uncompressed, zstd, lz4, snappy, gzip, producer]
+    retention.ms: 7200000 # This configuration controls the maximum time we will retain a log before we will discard old log segments to free up space if we are using the "delete" retention policy. 
+    segment.bytes: 1073741824 # This configuration controls the segment file size for the log
+    min.insync.replicas: 2 # This configuration specifies the minimum number of replicas that must acknowledge a write for the write to be considered successful. Values [1,...]
+    unclean.leader.election.enable: false # Indicates whether to enable replicas not in the ISR set to be elected as leader as a last resort, even though doing so may result in data loss

@@ -48,3 +48,8 @@ spec:
           patternType: literal
         operation: Describe
         host: "*"
+  quotas:
+    producerByteRate: 1048576
+    consumerByteRate: 2097152
+    requestPercentage: 55
+    controllerMutationRate: 10

@@ -2,6 +2,8 @@
 
 [Strimzi](https://strimzi.io/) provides a way to run an Apache Kafka cluster on Kubernetes in various deployment configurations.
 
+For more advanced features see the [complete guide](https://strimzi.io/docs/operators/latest/configuring.html)
+
 Secure by Default
 
 * Built-in security

@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: kafka
+    image: quay.io/strimzi/kafka:0.28.0-kafka-3.1.0
+    command: ["$COMMAND"]
+    tty: true
+    stdin: true
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "100m"
+      limits:
+        memory: "256Mi"
+        cpu: "500m"
+    volumeMounts:
+    - name: secret-volume
+      mountPath: /tmp/certs
+  restartPolicy: Never
+  volumes:
+  - name: secret-volume
+    secret:
+      secretName: kafka-client

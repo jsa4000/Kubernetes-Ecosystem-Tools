@@ -35,6 +35,53 @@ helm delete strimzi -n strimzi
 
 ## Kafka Cluster
 
+This section provides the minimal configurations to deploy a Kafka Cluster using Strimzi Operator.
+
+`kafka-cluster.yaml`
+
+```yaml
+apiVersion: kafka.strimzi.io/v1beta2
+kind: Kafka
+metadata:
+  name: my-cluster
+spec:
+  kafka:
+    version: 3.1.0
+    replicas: 3
+    listeners:
+      - name: plain
+        port: 9092
+        type: internal
+        tls: false
+      - name: tls
+        port: 9093
+        type: internal
+        tls: true
+    config:
+      offsets.topic.replication.factor: 3
+      transaction.state.log.replication.factor: 3
+      transaction.state.log.min.isr: 2
+      default.replication.factor: 3
+      min.insync.replicas: 2
+      inter.broker.protocol.version: "3.1"
+    storage:
+      type: jbod
+      volumes:
+      - id: 0
+        type: persistent-claim
+        size: 100Gi
+        deleteClaim: false
+  zookeeper:
+    replicas: 3
+    storage:
+      type: persistent-claim
+      size: 100Gi
+      deleteClaim: false
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}
+```
+
 ### Kafka Persistent
 
 Kafka clusters should be created using `persistent` storage.
@@ -115,6 +162,26 @@ kubectl delete kafka/my-cluster -n kafka
 
 Topics can be created using `CRDs`.
 It is recommended to disable `auto.create.topics.enable: false` parameter in kafka configuration.
+
+> [See Topic Configuration](https://docs.confluent.io/platform/current/installation/configuration/topic-configs.html)
+
+`kafka-topci.yaml`
+
+```yaml
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: my-topic
+  labels:
+    strimzi.io/cluster: my-cluster
+spec:
+  partitions: 3
+  replicas: 3
+  config:
+    retention.ms: 7200000
+    segment.bytes: 1073741824
+    min.insync.replicas: 2
+```
 
 ```bash
 # Apply the `Kafka` Topic CR file 
