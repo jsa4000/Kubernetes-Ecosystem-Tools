@@ -35,7 +35,7 @@ helm delete strimzi -n strimzi
 
 ## Kafka Cluster
 
-This section provides the minimal configurations to deploy a Kafka Cluster using Strimzi Operator.
+This section provides the minimal [configuration](https://strimzi.io/docs/operators/latest/configuring.html) to deploy a Kafka Cluster using Strimzi Operator.
 
 > As well as configuring `Kafka`, you can add configuration for `ZooKeeper` and the Strimzi Operators. Common configuration properties, such as logging and healthchecks, are configured independently for each component.
 
