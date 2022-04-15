@@ -305,3 +305,11 @@ kubectl -n kafka run kafka-publisher -ti --rm=true --restart=Never --image=quay.
 export COMMAND='bin/kafka-console-consumer.sh --bootstrap-server my-cluster-kafka-bootstrap:9093 --topic my-topic --consumer-property group.id=my-group --from-beginning --consumer.config /tmp/certs/client.properties'
 kubectl -n kafka run kafka-consumer -ti --rm=true --restart=Never --image=quay.io/strimzi/kafka:0.28.0-kafka-3.1.0 --overrides="$(get_override $COMMAND $PATCH_FILE)"
 ```
+
+## SCRAM-SHA-512
+
+See the `examples/security/keycloak-authorization` example to get the needed configuration for the `Kafka cluster`, `Users` and `Topics`.
+
+## KEYCLOAK
+
+See the `examples/security/scram-sha-512-auth` example to get the needed configuration for the `Kafka cluster`, `Users` and `Topics`.

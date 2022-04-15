@@ -37,6 +37,19 @@ helm delete strimzi -n strimzi
 
 This section provides the minimal configurations to deploy a Kafka Cluster using Strimzi Operator.
 
+> As well as configuring `Kafka`, you can add configuration for `ZooKeeper` and the Strimzi Operators. Common configuration properties, such as logging and healthchecks, are configured independently for each component.
+
+This procedure shows only some of the possible configuration options, but those that are particularly important include:
+
+* Resource requests (CPU / Memory)
+* JVM options for maximum and minimum memory allocation
+* Listeners (and authentication of clients)
+* Authentication
+* Storage
+* Rack awareness
+* Metrics
+* Cruise Control for cluster rebalancing
+
 `kafka-cluster.yaml`
 
 ```yaml
@@ -81,6 +94,8 @@ spec:
     topicOperator: {}
     userOperator: {}
 ```
+
+> Checkout the kafka `kafka-advanced.yaml` manifest with for more advanced features that can be configured.
 
 ### Kafka Persistent
 
